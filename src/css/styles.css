@@ -24,10 +24,6 @@ a {
   text-decoration: none;
 }
 
-button {
-  cursor: pointer;
-}
-
 img {
   display: block;
   max-width: 100%;
@@ -50,7 +46,7 @@ body {
   border: 1px solid #808080;
   padding-left: 16px;
 }
-.button {
+.button-search {
   background-color: #4e75ff;
   border-radius: 8px;
   padding: 8px 16px;
@@ -64,19 +60,41 @@ body {
   color: #fff;
   cursor: pointer;
 }
-.button:hover {
+.button-search:hover {
   background-color: #6c8cff;
+}
+.list-item {
+  border: 1px solid #808080;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
 }
 .info {
   display: flex;
-  gap: 28px;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+.info li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.info-text {
+  font-weight: 500;
+  font-size: 14px;
 }
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  row-gap: 24px;
-  column-gap: 24px;
+  gap: 24px;
+  justify-content: center;
+  padding-bottom: 40px;
 }
+
 .image {
   width: 360px;
   height: 200px;
@@ -161,4 +179,27 @@ body {
   87% {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
+}
+
+.button-more {
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  background-color: #4e75ff;
+  border: transparent;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.button-more:hover {
+  background-color: #6c8cff;
+}
+.hiddenbtn {
+  display: none;
 }

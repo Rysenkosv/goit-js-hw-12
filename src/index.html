@@ -19,11 +19,15 @@
             required
           />
         </label>
-        <button class="button" type="submit">Search</button>
+        <button class="button-search" type="submit">Search</button>
       </form>
 
       <ul class="gallery"></ul>
-      <span class="loader"></span>
+
+      <div class="button-wrapper">
+        <button type="button" class="hiddenbtn button-more">Load more</button>
+        <span class="loader">Loading...</span>
+      </div>
     </main>
 
     <script type="module" src="./main.js"></script>
