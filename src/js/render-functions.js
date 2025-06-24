@@ -2,6 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const buttonMore = document.querySelector('.button-more');
+
 export function createGallery(images) {
   return images
     .map(
@@ -16,29 +17,28 @@ export function createGallery(images) {
         downloads,
       }) => `
     <li class="list-item" data-id="${id}">
-  <a href="${largeImageURL}">
-    <img class="image" src="${webformatURL}" alt="${tags}" width="360" />
-  </a>
-  <ul class="info">
-    <li>
-      <h3>Likes</h3>
-      <p class="info-text">${likes}</p>
+      <a href="${largeImageURL}">
+        <img class="image" src="${webformatURL}" alt="${tags}" width="360" />
+      </a>
+      <ul class="info">
+        <li>
+          <h3>Likes</h3>
+          <p class="info-text">${likes}</p>
+        </li>
+        <li>
+          <h3>Views</h3>
+          <p class="info-text">${views}</p>
+        </li>
+        <li>
+          <h3>Comments</h3>
+          <p class="info-text">${comments}</p>
+        </li>
+        <li>
+          <h3>Downloads</h3>
+          <p class="info-text">${downloads}</p>
+        </li>
+      </ul>
     </li>
-    <li>
-      <h3>Views</h3>
-      <p class="info-text">${views}</p>
-    </li>
-    <li>
-      <h3>Comments</h3>
-      <p class="info-text">${comments}</p>
-    </li>
-    <li>
-      <h3>Downloads</h3>
-      <p class="info-text">${downloads}</p>
-    </li>
-  </ul>
-</li>
-
     `
     )
     .join('');
@@ -54,6 +54,11 @@ export function renderGallery(images) {
   });
 
   lightbox.refresh();
+}
+
+export function clearGallery() {
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = '';
 }
 
 const loader = document.querySelector('.loader');

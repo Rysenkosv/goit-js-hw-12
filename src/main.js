@@ -45,9 +45,11 @@ async function handleSubmit(event) {
 
   try {
     const response = await fetchImages(currentQuery, currentPage);
-    const images = response.data.hits;
+    const images = response.hits;
 
-    totalHits = response.data.totalHits;
+    totalHits = response.totalHits;
+    const totalPages = Math.ceil(totalHits / perPage);
+
     if (images.length === 0) {
       iziToast.info({
         message: 'Зображень не знайдено.',
@@ -56,9 +58,9 @@ async function handleSubmit(event) {
     } else {
       renderGallery(images);
 
-      const totalLoaded = currentPage * perPage;
-      if (totalLoaded < totalHits) {
+      if (totalPages > 1) {
         showLoadMoreButton();
+        buttonMore.disabled = false;
       } else {
         hideLoadMoreButton();
       }
@@ -83,35 +85,39 @@ async function handleLoadMore() {
 
   try {
     const data = await fetchImages(currentQuery, currentPage);
-    const images = data.data.hits;
+    const images = response.hits;
 
     renderGallery(images);
 
-    const totalLoaded = currentPage * perPage;
-    if (totalLoaded >= totalHits) {
+    const totalPages = Math.ceil(totalHits / perPage);
+    if (currentPage >= totalPages) {
       hideLoadMoreButton();
-
       iziToast.info({
         message: 'Усі результати завантажено.',
         position: 'bottomCenter',
         timeout: 3000,
       });
+    } else {
+      buttonMore.disabled = false;
+      showLoadMoreButton();
     }
-    const card = document.querySelector('.list-item ');
-    const cardHeight = card.getBoundingClientRect().height;
 
-    window.scrollBy({
-      left: 0,
-      top: cardHeight * 3,
-      behavior: 'smooth',
-    });
+    const card = document.querySelector('.list-item');
+    if (card) {
+      const cardHeight = card.getBoundingClientRect().height;
+      window.scrollBy({
+        left: 0,
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+    }
   } catch (error) {
     iziToast.error({
       message: 'Помилка при завантаженні додаткових зображень',
       position: 'topRight',
     });
-  } finally {
     buttonMore.disabled = false;
+  } finally {
     hideLoader();
   }
 }
