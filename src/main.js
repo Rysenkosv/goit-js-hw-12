@@ -58,7 +58,7 @@ async function handleSubmit(event) {
     } else {
       renderGallery(images);
 
-      if (totalPages > 1) {
+      if (currentPage < totalPages) {
         showLoadMoreButton();
         buttonMore.disabled = false;
       } else {
@@ -85,21 +85,21 @@ async function handleLoadMore() {
 
   try {
     const data = await fetchImages(currentQuery, currentPage);
-    const images = response.hits;
+    const images = data.hits;
 
     renderGallery(images);
 
     const totalPages = Math.ceil(totalHits / perPage);
-    if (currentPage >= totalPages) {
+    if (currentPage < totalPages) {
+      buttonMore.disabled = false;
+      showLoadMoreButton();
+    } else {
       hideLoadMoreButton();
       iziToast.info({
         message: 'Усі результати завантажено.',
         position: 'bottomCenter',
         timeout: 3000,
       });
-    } else {
-      buttonMore.disabled = false;
-      showLoadMoreButton();
     }
 
     const card = document.querySelector('.list-item');
