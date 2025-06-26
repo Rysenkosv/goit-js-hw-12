@@ -2,6 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const buttonMore = document.querySelector('.button-more');
+let lightbox = null;
 
 export function createGallery(images) {
   return images
@@ -48,12 +49,14 @@ export function renderGallery(images) {
   const gallery = document.querySelector('.gallery');
   gallery.insertAdjacentHTML('beforeend', createGallery(images));
 
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
-
-  lightbox.refresh();
+  if (!lightbox) {
+    lightbox = new SimpleLightbox('.gallery a', {
+      captionsData: 'alt',
+      captionDelay: 250,
+    });
+  } else {
+    lightbox.refresh();
+  }
 }
 
 export function clearGallery() {
